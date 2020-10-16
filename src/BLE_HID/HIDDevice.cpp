@@ -6,6 +6,7 @@
 #include "events/mbed_events.h"
 #include "HIDServiceBase.h"
 #include "ble/services/BatteryService.h"
+#include "ble/gap/AdvertisingParameters.h"
 #include "HIDDeviceInformationService.h"
 #include "HIDDevice.h"
 
@@ -31,15 +32,15 @@ void HIDDevice::schedule_ble_events(BLE::OnEventsToProcessCallbackContext *conte
 }
 
 HIDDevice::HIDDevice(BLE &ble, ble::adv_data_appearance_t appearance): 
-    _battery_level(50),
-    device_name("Example"),
-    manufacturersName("ARM"),
     _ble(ble),
+    _battery_level(50),
+    manufacturersName("ARM"),
+    device_name("Example"),
     _battery_uuid(GattService::UUID_BATTERY_SERVICE),
     _battery_service(_ble, _battery_level),
-    _handle(0),
     appearance2(appearance),
     _adv_data_builder(_adv_buffer),
+    _handle(0),
      ifconnected(false){
      }
 
@@ -135,7 +136,7 @@ HIDDevice::HIDDevice(BLE &ble, ble::adv_data_appearance_t appearance):
     
 
         ble_error_t error = _ble.gap().setAdvertisingParameters(
-            GapAdvertisingParams::ADV_CONNECTABLE_UNDIRECTED,
+            ble::advertising_type_t::CONNECTABLE_UNDIRECTED,
             adv_parameters
         );
 

@@ -1,3 +1,7 @@
+
+#ifndef BLE_HID_HID_DEVICE_H
+#define BLE_HID_HID_DEVICE_H
+
 #include "mbed.h"
 #include "ble/BLE.h"
 #include "SecurityManager.h"
@@ -50,3 +54,4 @@ private:
     );
 
 };
+#endif
